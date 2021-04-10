@@ -3,7 +3,7 @@
 eToro DevOps technical task
 
 ## Description
-eToro DevOps technical task to deplloy simplw-web application using Helm & Jenkins pipeline.
+eToro DevOps technical task to deplloy simple-web application using Helm & Jenkins pipeline.
 
 ### Dependencies
 1. Install **az cli**:  https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt2.
