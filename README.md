@@ -9,6 +9,7 @@ An in-depth paragraph about your project and overview of use.
 ## Getting Started
 add ls
 Sign in with a managed identity
+az aks get-credentials --admin --name MyManagedCluster --resource-group MyResourceGroup
 
 ### Dependencies
 
