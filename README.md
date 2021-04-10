@@ -2,7 +2,7 @@
 
 Simple overview of use/purpose.
 
-## Descriptions
+## Description
 
 An in-depth paragraph about your project and overview of use.
 
