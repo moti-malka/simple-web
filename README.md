@@ -10,7 +10,7 @@ An in-depth paragraph about your project and overview of use.
 add ls
 Sign in with a managed identity
 az aks get-credentials --admin --name MyManagedCluster --resource-group MyResourceGroup
-
+helm upgrade
 ### Dependencies
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
