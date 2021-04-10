@@ -8,7 +8,7 @@ An in-depth paragraph about your project and overview of use.
 
 ## Getting Started
 add ls
- helm install simple-web  simple-web/
+Sign in with a managed identity
 
 ### Dependencies
 
