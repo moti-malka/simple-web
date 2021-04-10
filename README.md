@@ -1,17 +1,15 @@
 # Project Title
 
-Simple overview of use/purpose.
+eToro DevOps technical task
 
 ## Description
+eToro DevOps technical task to deplloy simplw-web application using Helm & Jenkins pipeline.
 
-An in-depth paragraph about your project and overview of use.
-
-## Getting Started
-add ls
-Sign in with a managed identity
-az aks get-credentials --admin --name MyManagedCluster --resource-group MyResourceGroup
-helm upgrade
 ### Dependencies
+1. Install az cli: `curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash`.
+2. Install kubectl:
+ 2.1 Download the latest release with the command:
+     `curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"`
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
 * ex. Windows 10
