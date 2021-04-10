@@ -78,7 +78,6 @@ helm create simple-web /simple-web
 ### Jenkins installation
  - Install Jenkins : https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt2.
  - Create new project with name: simple-web-pipeline.
- - Integrate the GitHub Repository with the Jenkins Project: https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project.
 - Add new task {Execute shell} to Build section
 - Add this command to task
   ```
