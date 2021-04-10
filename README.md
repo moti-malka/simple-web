@@ -6,58 +6,94 @@ eToro DevOps technical task
 eToro DevOps technical task to deplloy simplw-web application using Helm & Jenkins pipeline.
 
 ### Dependencies
-1. Install az cli: `curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash`.
-2. Install kubectl:
- 2.1 Download the latest release with the command:
-     `curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"`
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+1. Install **az cli**:  https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt2.
+2. Install **kubectl**:  https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+3. Install **Helm**:  https://helm.sh/docs/intro/install/
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
+* Login to azure
 ```
-code blocks for commands
+az login --identity
 ```
 
-## Help
+* Get AKS Credential
+```
+az aks get-credentials --admin --name <cluster-name> --resource-group <resource-group-name>
+```
+ 
+* Create a new chart with the "simple-web" name
+``` 
+helm create simple-web
+```
 
-Any advise for common problems or issues.
+* Update the image repository & image tag in values.yaml file
 ```
-command to run if program contains helper info
+image:
+  repository: devopsinterviewacr.azurecr.io/simple-web
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
 ```
+
+* Enable ingress and add the rewrite annotation
+
+```
+ingress:
+  enabled: ture
+  annotations: {
+    kubernetes.io/ingress.class: "nginx",
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  
+  }
+```
+* Add path to hosts section
+  
+```
+hosts:
+    - host: chart-example.local
+      paths:
+      - path: /web-simple
+        backend:
+          serviceName: chart-example.local
+          servicePort: 80
+```
+
+* Enable autoscaling 
+
+```
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+```
+
+* Install the charts
+```
+helm create simple-web /simple-web
+```
+
+### Jenkins installation
+ - Install Jenkins : https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt2.
+ - Create new project with name: simple-web-pipeline.
+ - Integrate the GitHub Repository with the Jenkins Project: https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project.
+- Add new task {Execute shell} to Build section
+- Add this command to task
+  ```
+  echo "Sign in with a managed identity"
+  az login --identity
+  az aks get-credentials --admin --name devops-interview-aks --resource-group devops-intreview-rg
+  echo "Start Install simple-web"
+  helm upgrade simple-web simple-web/
+  ```
+* Do some change on the repo: https://github.com/motim6026/simple-web
+* The build will start and update the application.
 
 ## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+moti.malka25@gmail.com.
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+This project is licensed under the moti malka License - see the LICENSE.md file for details
